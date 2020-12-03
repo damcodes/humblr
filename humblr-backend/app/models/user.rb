@@ -10,4 +10,9 @@ class User < ApplicationRecord
   has_many :likes, through: :posts
   has_many :comments, through: :posts
 
+  validates :email, uniqueness: true, presence: true
+  validates :username, length: { minimum: 2, maximum: 20}, presence:true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+
 end

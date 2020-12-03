@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  resources :posts, only: [:index]
-  #resources :follows
-  resources :users, only: [:index, :show]
+  resources :users, except: [:edit, :new]
+  resources :posts, only: [:show, :create, :update, :destroy]
+  resources :follows, only: [:create, :destroy]
+  resources :likes, only: [:create, :destroy]
+  resources :comments, only: [:create, :destroy]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

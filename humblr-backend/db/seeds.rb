@@ -1,10 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
 Post.destroy_all
 Like.destroy_all
 Follow.destroy_all
@@ -28,3 +21,7 @@ like2 = Like.create(post_id: post2.id, user_id: user1.id)
 like3 = Like.create(post_id: post3.id, user_id: user1.id)
 like4 = Like.create(post_id: post1.id, user_id: user3.id)
 
+comment1 = Comment.create(content: "This is a really cool post!", post_id: post2.id, user_id: user1.id)
+comment2 = Comment.create(content: "Awesome post!", post_id: post2.id, user_id: user3.id)
+comment3 = Comment.create(content: "Eh, this is okay.", post_id: post1.id, user_id: user3.id)
+comment4 = Comment.create(content: "I think this is super cool", post_id: post1.id, user_id: user2.id)

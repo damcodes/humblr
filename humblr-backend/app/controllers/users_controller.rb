@@ -10,4 +10,13 @@ class UsersController < ApplicationController
     render json: UserSerializer.new(user).serialize 
   end
 
+  def create
+  end
+
+  def update
+  end
+
+  def destroy
+  end
+
 end

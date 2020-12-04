@@ -14,7 +14,7 @@ function renderUserHome(userObj) {
   removeAllChildren(navBar)
   const loginBox = document.querySelector("div.loginBox")
   loginBox.remove()
-  newMenu(navBar, "Delete Account", "Log Out")
+  newMenu(navBar, "Dashboard", "Delete Account", "Log Out")
   const main = document.querySelector("main")
   const welcomeUserHeader = document.createElement("h2")
   welcomeUserHeader.innerText = `Welcome ${userObj.first_name}`
@@ -53,7 +53,7 @@ function newMenu(navBar) {
 }
 
 function renderThisUserPosts(user) {
-  
+  user.posts.forEach(post => (getPost(post)))
 }
 
 function deleteUser(user) {

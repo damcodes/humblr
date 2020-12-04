@@ -9,7 +9,7 @@ function renderLoginPage(main) {
   const formDiv = document.createElement("div")
   formDiv.className = "loginBox"
   const loginHeader = document.createElement("h2")
-  loginHeader.innerText = "Login"
+  loginHeader.innerText = "Log In"
   const loginForm = document.createElement("form")
   const emailField = document.createElement("input")
   emailField.placeholder = "Email"
@@ -45,13 +45,14 @@ function newSession(e) {
       email: email,
       username: username
     })
-  }).then( res => res.json() ).then( session => {
-    if (session instanceof Array) {
-      renderErrors(session, form)
+  })
+  .then( res => res.json() )
+  .then( currentUser => {
+    if (currentUser instanceof Array) {
+      renderErrors(currentUser, form)
     } else {
-      fetchUser(session)
+      renderUserHome(currentUser) //homepage.js
     }
-
   })
 }
 

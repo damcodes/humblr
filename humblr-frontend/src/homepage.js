@@ -1,35 +1,46 @@
-function fetchUser(session) {
-  let userId = session.user_id
-  fetch(`http://localhost:3000/users/${userId}`).then( 
-    res => res.json() 
-  ).then( 
-    user => {
-      renderUserHome(user)
-      const navBar = document.querySelector("nav")
-      navBar.addEventListener("click", e => { 
-        const isButton = e.target.nodeName === "BUTTON"
-        if (!isButton) {
-          return
-        }
-        const choice = e.target
-        if (choice.innerText === "Delete Account") {
-          deleteUser(user)
-        }
-      })
-    }
-  )
-}
-
+// function fetchUser(currentUser) {
+//   let userId = currentUser.id
+//   fetch(`http://localhost:3000/users/${userId}`).then( 
+//     res => res.json() 
+//   ).then( 
+//     user => {
+//       renderUserHome(user)
+//       handleNavClicks(user)
+//     }
+//   )
+// }
 function renderUserHome(userObj) {
   const navBar = document.querySelector("nav")
   removeAllChildren(navBar)
   const loginBox = document.querySelector("div.loginBox")
   loginBox.remove()
-  newMenu(navBar, "Delete Account")
+  newMenu(navBar, "Delete Account", "Log Out")
   const main = document.querySelector("main")
   const welcomeUserHeader = document.createElement("h2")
   welcomeUserHeader.innerText = `Welcome ${userObj.first_name}`
   main.appendChild(welcomeUserHeader)
+
+  renderThisUserPosts(userObj)
+  handleNavClicks(userObj)
+}
+
+function handleNavClicks(user) {
+  const navBar = document.querySelector("nav")
+  navBar.addEventListener("click", e => { 
+    const choice = e.target
+    const isButton = choice.nodeName === "BUTTON"
+    if (!isButton) {
+      return
+    }
+    if (choice.innerText === "Delete Account") {
+      deleteUser(user)
+    } else if (choice.innerText === "Log Out") {
+      const main = document.querySelector("main")
+      removeAllChildren(main)
+      removeAllChildren(navBar)
+      renderLanding()
+    }
+  })
 }
 
 function newMenu(navBar) {
@@ -39,6 +50,10 @@ function newMenu(navBar) {
     newNavBtn.innerText = navOptionText
     navBar.appendChild(newNavBtn)
   })
+}
+
+function renderThisUserPosts(user) {
+  
 }
 
 function deleteUser(user) {
@@ -62,6 +77,6 @@ function deleteUser(user) {
     method: "DELETE"
   }).then( res => res.json() ).then( user => {
     console.log(user)
-    setTimeout(renderPage, 2500)
+    setTimeout(renderLanding, 2500) // landing.js
   })
 }

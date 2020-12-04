@@ -1,6 +1,6 @@
-document.addEventListener("DOMContentLoaded", renderPage)
+document.addEventListener("DOMContentLoaded", renderLanding)
 
-function renderPage() {
+function renderLanding() {
   const main = document.querySelector("main")
   removeAllChildren(main)
   const navBar = document.querySelector("nav")

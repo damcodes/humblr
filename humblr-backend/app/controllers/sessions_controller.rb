@@ -5,8 +5,7 @@ class SessionsController < ApplicationController
     username = session_params[:username]
     user = User.find_by(email: email, username: username)
     if user
-      session[:user_id] = user.id
-      render json: session
+      render json: UserSerializer.new(user).serialize
     else 
       render json: ["Incorrect email or username."]
     end

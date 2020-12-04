@@ -6,7 +6,7 @@ header {
   font-size: 30px;
   color: white;
 }
-h2 {
+h2, h3 {
   text-align: center;
 }
 form {
@@ -15,15 +15,16 @@ form {
 nav {
   text-align: center;
 }
-div.signUpBox {
+div.signUpBox, div.loginBox, div#delete-message-div {
   margin: 30px;
-  background-color: #eccc68;
+  background-color: #7bed9f;
   border: 1px solid black;
   border-radius: 10px;
 }
-div.signUpBox form {
+div.signUpBox form, div.loginBox form {
   margin: 3%;
   font-weight: bold;
   color: #000000;
 }
+
 

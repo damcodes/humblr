@@ -24,6 +24,7 @@ function renderSignUpForm(main) {
   lastNameInput.placeholder = "Last Name"
   lastNameInput.id = "lastName-input"
   submitBtn.type = "submit"
+  submitBtn.value = "Create Account"
   let children = [emailInput, usernameInput, firstNameInput, lastNameInput, submitBtn]
   children.forEach(child => {
     parentForm.appendChild(child)
@@ -32,7 +33,7 @@ function renderSignUpForm(main) {
   formDiv.appendChild(signUpHeader)
   formDiv.appendChild(parentForm)
   main.appendChild(formDiv)
-  parentForm.addEventListener("submit", e => createUser(e))
+  parentForm.addEventListener("submit", (e) => createUser(e))
 }
 
 function createUser(e) {
@@ -55,6 +56,8 @@ function createUser(e) {
     console.log(user)
     if (user instanceof Array) {
       renderErrors(user, form)
+    } else {
+      renderLoginPage(document.querySelector("main")) // login.js
     }
    })
   form.reset()

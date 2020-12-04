@@ -9,6 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
       showPost(post)})
   }
 
+  const getUsers = () => {
+    fetch(`http://localhost:3000/users`)
+    .then (res => res.json())
+    .then (users => {
+      findUser(users)})
+  }
+
   const showPost = (post) => {
     const title = document.querySelector('.title')
     title.innerText = post.title
@@ -21,18 +28,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const likesCount = document.querySelector('.likes')
     likesCount.innerText = `${post.likes.length} likes`
-  
+
+    // if your user_id is not in the list of likes for this post, you
+    //can like it, otherwise post message "You like this."
+    const didLike = post.likes.find(like => like.user_id === currentUser.id)
     const likeBtn = document.querySelector('.like-button')
-    likeBtn.addEventListener('click', (e) => {
+    if didLike(post) => {likeBtn.innerText = 'You like this."'}
+
+    if !didLike() => {
+      likeBtn.addEventListener('click', (e) => {
       const currentLikes = parseInt(likesCount.innerHTML.split(' ')[0])
       const newLikes = currentLikes + 1
       likesCount.innerText = `${newLikes} likes`
       persistLikes(post)
     })
-    
+  }
 
     const persistLikes = (post) => {
-      fetch('http://localhost:3000/likes', {
+      fetch('http://localhost:3000/posts', {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

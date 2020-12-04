@@ -12,9 +12,9 @@ follow1 = Follow.create(follower_id: user1.id, followee_id: user2.id)
 follow2 = Follow.create(follower_id: user3.id, followee_id: user1.id)
 follow3 = Follow.create(follower_id: user2.id, followee_id: user3.id)
 
-post1 = Post.create(img_url: "url_of_an_img", content: "This is the first post", user_id: user1.id)
-post2 = Post.create(img_url: "another_img_url", content: "This is Eric's first post", user_id: user2.id)
-post3 = Post.create(img_url: "yet_another_img", content: "This is Mohammed's first post", user_id: user3.id)
+post1 = Post.create(img_url: "https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg", title: "Title 1", content: "This is the first post", user_id: user1.id)
+post2 = Post.create(img_url: "https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg", title: "Title 2", content: "This is Eric's first post", user_id: user2.id)
+post3 = Post.create(img_url: "https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg", title: "Title 3", content: "This is Mohammed's first post", user_id: user3.id)
 
 like1 = Like.create(post_id: post1.id, user_id: user2.id)
 like2 = Like.create(post_id: post2.id, user_id: user1.id)

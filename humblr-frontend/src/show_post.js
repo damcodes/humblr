@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
     const persistLikes = (post) => {
-      fetch('http://localhost:3000/posts', {
+      fetch('http://localhost:3000/posts/${posts.id}', {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

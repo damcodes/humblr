@@ -59,4 +59,58 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(post => console.log(post))
     }
   
+    const commentForm = document.querySelector('.comment-form')
+    commentForm.addEventListener('submit', (e) => {
+      e.preventDefault()
+      const newComment = e.target.comment.value
+      renderComments(newComment)
+      e.target.reset()
+      persistComment(newComment)
+    })
+    
+    post.comments.forEach(comment => renderComments(comment))
+  }
+  
+  const renderComments = (comment) => {
+    const commentsContainer = document.querySelector('.comments')
+    const commentLi = document.createElement('li')
+    commentLi.innerText = comment.content
+
+    const deleteBtn = document.createElement('button')
+    deleteBtn.innerText = "❌"
+      deleteBtn.addEventListener('click', (e) => {
+        deleteComment(e, comment.id)
+      })
+
+    commentLi.appendChild(deleteBtn)
+    commentsContainer.appendChild(commentLi)
+  }
+
+  const persistComment = (newComment) => {
+    fetch('http://localhost:3000/posts/${posts.id}', {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        post_id: post.id, 
+        user_id: post.user_id
+  })
+    })
+    .then(res => res.json())
+    .then(comment => renderComments(comment))
+  }
+  
+
+  const deleteComment = (e, commentId) => {
+    const commentLi = e.target.parentElement
+    commentLi.remove()
+    //THIS DOES NOT WORK, fetch is wrong
+    // fetch(`http://localhost:3000/posts/${postsId}/${comments.id}`, {
+    //   method: "DELETE",
+    //   headers: {
+    //     'Content-Type': "application/json"
+    //   }
+    // })
+
   }  

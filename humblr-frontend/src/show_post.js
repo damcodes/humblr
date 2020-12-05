@@ -33,16 +33,18 @@ document.addEventListener('DOMContentLoaded', () => {
     //can like it, otherwise post message "You like this."
     const didLike = post.likes.find(like => like.user_id === currentUser.id)
     const likeBtn = document.querySelector('.like-button')
-    if didLike(post) => {likeBtn.innerText = 'You like this."'}
 
-    if !didLike() => {
-      likeBtn.addEventListener('click', (e) => {
-      const currentLikes = parseInt(likesCount.innerHTML.split(' ')[0])
-      const newLikes = currentLikes + 1
-      likesCount.innerText = `${newLikes} likes`
-      persistLikes(post)
-    })
-  }
+  //brain is cramping, this is pseudo-code, cant remember how to do the if logic
+  //   if didLike then (likeBtn.innerText = 'You like this.'})
+
+  //   if !didLike(post) => {
+  //     likeBtn.addEventListener('click', (e) => {
+  //     const currentLikes = parseInt(likesCount.innerHTML.split(' ')[0])
+  //     const newLikes = currentLikes + 1
+  //     likesCount.innerText = `${newLikes} likes`
+  //     persistLikes(post)
+  //   })
+  // }
 
     const persistLikes = (post) => {
       fetch('http://localhost:3000/posts/${posts.id}', {
@@ -105,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const deleteComment = (e, commentId) => {
     const commentLi = e.target.parentElement
     commentLi.remove()
-    //THIS DOES NOT WORK, fetch is wrong
+    //THIS DOES NOT WORK, fetch is wrong, maybe?
     // fetch(`http://localhost:3000/posts/${postsId}/${comments.id}`, {
     //   method: "DELETE",
     //   headers: {

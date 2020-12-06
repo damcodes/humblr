@@ -37,3 +37,30 @@ div.post-container {
   text-align: center;
   padding: 10px;
 }
+div.user-info-container {
+  text-align: center;
+  padding: 5px;
+}
+div.user-info-card {
+  background-color: #a4b0be;
+  border-radius: 10px;
+  display: inline-block;
+  padding: 40px;
+}
+.user-info-card-label {
+  font-weight: bold;
+  text-decoration: underline;
+}
+div.edit-profile-form-container {
+  text-align: center;
+  padding: 5px;
+}
+label.edit-profile-form-label {
+  font-weight: bold;
+  text-decoration: underline;
+  padding: 10px;
+}
+input.edit-profile-form-input, textarea.edit-profile-form-input {
+  text-align: center;
+  padding: 2px;
+}

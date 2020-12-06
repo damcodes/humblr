@@ -9,7 +9,6 @@ class UserSerializer
       include: {
         posts: {
           include: {
-            likes: { except: [:created_at, :updated_at] },
             comments: { except: [:created_at, :updated_at] }
           },
           except: [:created_at, :updated_at, :user_id]

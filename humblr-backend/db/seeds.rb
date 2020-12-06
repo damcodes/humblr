@@ -1,7 +1,7 @@
 Post.destroy_all
-Like.destroy_all
 Follow.destroy_all
 User.destroy_all
+Comment.destroy_all
 
 
 user1 = User.create(username: "user1", email: "email@email.com", first_name: "David", last_name: "Molina")
@@ -16,11 +16,6 @@ post1 = Post.create(img_url: "https://image.shutterstock.com/image-vector/ui-ima
 post2 = Post.create(img_url: "https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg", title: "Title 2", content: "This is Eric's first post", user_id: user2.id)
 post3 = Post.create(img_url: "https://image.shutterstock.com/image-vector/ui-image-placeholder-wireframes-apps-260nw-1037719204.jpg", title: "Title 3", content: "This is Mohammed's first post", user_id: user3.id)
 post4 = Post.create(img_url: "https://media.istockphoto.com/photos/close-up-of-colorful-keelbilled-toucan-bird-picture-id511523232?k=6&m=511523232&s=612x612&w=0&h=TTGhQHDpEqeXZtSpYh-7LeK8RcjO3FFDtgYR3Ja1ous=", title: "Tucan", content: "What a beatiful, majestic Tucan!", user_id: user1.id)
-
-like1 = Like.create(post_id: post1.id, user_id: user2.id)
-like2 = Like.create(post_id: post2.id, user_id: user1.id)
-like3 = Like.create(post_id: post3.id, user_id: user1.id)
-like4 = Like.create(post_id: post1.id, user_id: user3.id)
 
 comment1 = Comment.create(content: "This is a really cool post!", post_id: post2.id, user_id: user1.id)
 comment2 = Comment.create(content: "Awesome post!", post_id: post2.id, user_id: user3.id)

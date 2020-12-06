@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_04_021345) do
+ActiveRecord::Schema.define(version: 2020_12_05_024141) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "post_id", null: false
@@ -29,15 +29,6 @@ ActiveRecord::Schema.define(version: 2020_12_04_021345) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "likes", force: :cascade do |t|
-    t.integer "post_id", null: false
-    t.integer "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["post_id"], name: "index_likes_on_post_id"
-    t.index ["user_id"], name: "index_likes_on_user_id"
-  end
-
   create_table "posts", force: :cascade do |t|
     t.string "img_url"
     t.string "content"
@@ -45,6 +36,7 @@ ActiveRecord::Schema.define(version: 2020_12_04_021345) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "title"
+    t.integer "likes", default: 0
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -55,12 +47,10 @@ ActiveRecord::Schema.define(version: 2020_12_04_021345) do
     t.string "last_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.text "bio"
-    t.string "profile_pic_url"
+    t.text "bio", default: "Add a bio here."
+    t.string "profile_pic_url", default: "https://static.thenounproject.com/png/1095867-200.png"
   end
 
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
-  add_foreign_key "likes", "posts"
-  add_foreign_key "likes", "users"
 end

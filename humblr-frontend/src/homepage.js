@@ -14,31 +14,75 @@ function renderUserHome(userObj) {
   removeAllChildren(navBar)
   const loginBox = document.querySelector("div.loginBox")
   loginBox.remove()
-  newMenu(navBar, "Dashboard", "Delete Account", "Log Out")
+  newMenu(navBar, "Dashboard", "Edit Profile", "Delete Profile", "Log Out")
+
+  renderUserInfo(userObj)
+  renderThisUserPosts(userObj)
+  handleNavClicks(userObj)
+}
+
+function renderUserInfo(userObj) {
   const main = document.querySelector("main")
+  const userInfoContainer = document.createElement("div")
+  userInfoContainer.className = "user-info-container"         //create container for user data 
+  const userInfoCard = document.createElement("div")
+  userInfoCard.className = "user-info-card"                   //create card for user data within container
+  const userProfilePic = document.createElement("img")
+  userProfilePic.src = userObj.profile_pic_url             
+  userInfoCard.appendChild(userProfilePic)                    //append profile pic to user card
+  const usernameLabel = document.createElement("p")
+  usernameLabel.className = "user-info-card-label"
+  usernameLabel.innerText = "Username"
+  userInfoCard.appendChild(usernameLabel)                     //append username label to user card
+  const username = document.createElement("p")
+  username.className = "user-info-card-attribute"
+  username.innerText = userObj.username
+  userInfoCard.appendChild(username)                          //append username to user card
+  const fullNameLabel = document.createElement("p")
+  fullNameLabel.className = "user-info-card-label"
+  fullNameLabel.innerText = "Name"
+  userInfoCard.appendChild(fullNameLabel)                     //append name label to user card
+  const fullName = document.createElement("p")
+  fullName.className = "user-info-card-attribute"
+  fullName.innerText = `${userObj.first_name} ${userObj.last_name}`
+  userInfoCard.appendChild(fullName)                          //append full name to user card
+  const bioLabel = document.createElement("p")
+  bioLabel.className = "user-info-card-label"
+  bioLabel.innerText = "Bio"
+  userInfoCard.appendChild(bioLabel)                          //append bio label to user card
+  const bio = document.createElement("p")
+  bio.className = "user-info-card-attribute"
+  bio.innerText = userObj.bio
+  userInfoCard.appendChild(bio)                               //append bio to user card
+  userInfoContainer.appendChild(userInfoCard)                 //append populated user card to card container
   const welcomeUserHeader = document.createElement("h2")
   welcomeUserHeader.innerText = `Welcome ${userObj.first_name}`
   main.appendChild(welcomeUserHeader)
-
-  renderThisUserPosts(userObj)
-  handleNavClicks(userObj)
+  main.appendChild(userInfoContainer)
 }
 
 function handleNavClicks(user) {
   const navBar = document.querySelector("nav")
   navBar.addEventListener("click", e => { 
     const choice = e.target
+    const main = document.querySelector("main")
     const isButton = choice.nodeName === "BUTTON"
     if (!isButton) {
       return
     }
-    if (choice.innerText === "Delete Account") {
+    if (choice.innerText === "Delete Profile") {
       deleteUser(user)
     } else if (choice.innerText === "Log Out") {
-      const main = document.querySelector("main")
       removeAllChildren(main)
       removeAllChildren(navBar)
-      renderLanding()
+      renderLanding()                                   //landing.js
+    } else if (choice.innerText === "Edit Profile") {
+      removeAllChildren(main)
+      removeAllChildren(navBar)
+      editProfile(user)
+    } else if (choice.innerText === "Dashboard") {
+      removeAllChildren(main)
+      renderDashboard(user)
     }
   })
 }
@@ -53,7 +97,12 @@ function newMenu(navBar) {
 }
 
 function renderThisUserPosts(user) {
-  user.posts.forEach(post => (getPost(post)))
+  const main = document.querySelector("main")
+  const insertAt = main.querySelector("div.user-info-container")
+  const postsHeader = document.createElement("h3")
+  postsHeader.innerText = "Your Posts"
+  main.insertBefore(postsHeader, insertAt.nextElementSibling)
+  user.posts.forEach(post => (showPost(post))) // show_post.js
 }
 
 function deleteUser(user) {

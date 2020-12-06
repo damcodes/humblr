@@ -7,7 +7,6 @@ class User < ApplicationRecord
   has_many :followings, through: :given_follows, source: :followee
   
   has_many :posts, dependent: :destroy
-  has_many :likes, through: :posts
   has_many :comments, through: :posts
 
   validates :email, uniqueness: true, presence: true

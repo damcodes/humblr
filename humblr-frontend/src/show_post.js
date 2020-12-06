@@ -5,6 +5,17 @@ const showPost = (post) => {
   const postCard = document.createElement("div")
   postCard.className = "post-card"
 
+  if (post.user_id) {
+    fetch(`http://localhost:3000/users/${post.user_id}`)
+    .then( res => res.json() )
+    .then( user => {
+      const username = document.createElement('p')
+      username.className = "post-username"
+      username.innerText = user.username
+      postCard.appendChild(username)
+    })
+  }
+
   const title = document.createElement("h2")
   title.className = "post-title"
   title.innerText = post.title

@@ -13,8 +13,10 @@ function renderUserHome(userObj) {
   const navBar = document.querySelector("nav")
   removeAllChildren(navBar)
   const loginBox = document.querySelector("div.loginBox")
-  loginBox.remove()
-  newMenu(navBar, "Dashboard", "Edit Profile", "Delete Profile", "Log Out")
+  if (loginBox) {
+    loginBox.remove()
+  }
+  newMenu(navBar, "Dashboard", "My Profile", "Edit Profile", "Delete Profile", "Log Out")
 
   renderUserInfo(userObj)
   renderThisUserPosts(userObj)
@@ -83,6 +85,9 @@ function handleNavClicks(user) {
     } else if (choice.innerText === "Dashboard") {
       removeAllChildren(main)
       renderDashboard(user)
+    } else if (choice.innerText === "My Profile") {
+      removeAllChildren(main)
+      renderUserHome(user)
     }
   })
 }
@@ -99,9 +104,12 @@ function newMenu(navBar) {
 function renderThisUserPosts(user) {
   const main = document.querySelector("main")
   const insertAt = main.querySelector("div.user-info-container")
-  const postsHeader = document.createElement("h3")
-  postsHeader.innerText = "Your Posts"
-  main.insertBefore(postsHeader, insertAt.nextElementSibling)
+  if (!document.querySelector("#posts-header")) {
+    const postsHeader = document.createElement("h3")
+    postsHeader.id = "posts-header"
+    postsHeader.innerText = "Your Posts"
+    main.insertBefore(postsHeader, insertAt.nextElementSibling)
+  }
   user.posts.forEach(post => (showPost(post))) // show_post.js
 }
 

@@ -14,7 +14,17 @@ class UserSerializer
           except: [:created_at, :updated_at, :user_id]
         },  
         followers: { except: [:created_at, :updated_at] },
-        followings: { except: [:created_at, :updated_at] }
+        followings: { 
+          include: { 
+            posts: {
+              include: {
+                comments: { except: [:created_at, :updated_at]}
+              },
+              except: [:udpated_at]
+            }
+          },
+          except: [:created_at, :updated_at] 
+        }
       },
       except: [:created_at, :updated_at]
     }

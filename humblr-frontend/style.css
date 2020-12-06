@@ -64,3 +64,9 @@ input.edit-profile-form-input, textarea.edit-profile-form-input {
   text-align: center;
   padding: 2px;
 }
+p.post-username {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px;
+  font-size: 30px;
+}

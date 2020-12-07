@@ -1,26 +1,27 @@
 function fetchAndRenderUserHome(user) {
   let userId = user.id
-  fetch(`http://localhost:3000/users/${userId}`).then( 
-    res => res.json() 
-  ).then( 
-    user => {
-      renderUserHome(user)
-      handleNavClicks(user)
-    }
-  )
+  fetch(`http://localhost:3000/users/${userId}`)
+  .then( res => res.json() )
+  .then( user => {
+    renderUserHome(user)
+    handleNavClicks(user)
+  })  
 }
+
 function renderUserHome(userObj) {
   const navBar = document.querySelector("nav")
   removeAllChildren(navBar)
-  const loginBox = document.querySelector("div.loginBox")
-  if (loginBox) {
-    loginBox.remove()
-  }
+  // const loginBox = document.querySelector("div.loginBox")
+  // if (loginBox) {
+  //   loginBox.remove()
+  // }
+  const main = document.querySelector("main")
+  removeAllChildren(main)
   newMenu(navBar, "Dashboard", "New Post", "My Profile", "Edit Profile", "Delete Profile", "Log Out")
 
   renderUserInfo(userObj)
   renderThisUserPosts(userObj)
-  handleNavClicks(userObj)
+  // handleNavClicks(userObj)
 }
 
 function renderUserInfo(userObj) {
@@ -66,6 +67,7 @@ function renderUserInfo(userObj) {
 function handleNavClicks(user) {
   const navBar = document.querySelector("nav")
   navBar.addEventListener("click", e => { 
+    debugger
     const choice = e.target
     const main = document.querySelector("main")
     const isButton = choice.nodeName === "BUTTON"
@@ -90,7 +92,7 @@ function handleNavClicks(user) {
       renderUserHome(user)
     } else if (choice.innerText == "New Post") {
       removeAllChildren(main)
-      renderNewPostForm(user)
+      renderNewPostForm(user)                           //create_post.js
     }
   })
 }
@@ -141,9 +143,10 @@ function deleteUser(user) {
 
   deleteDiv.appendChild(deleteMessageH2)
   deleteDiv.appendChild(goodbyeUserH3)
-
-  main.appendChild(deleteDiv)
-
+  if (!main.querySelector("div")) {
+    main.appendChild(deleteDiv)
+  }
+  debugger
   fetch(`http://localhost:3000/users/${user.id}`, {
     method: "DELETE"
   })

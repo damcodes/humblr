@@ -1,15 +1,17 @@
-document.addEventListener("DOMContentLoaded", renderPage)
+document.addEventListener("DOMContentLoaded", renderLanding)
 
-function renderPage() {
-  const navParent = document.querySelector("nav")
-  const navBar = document.createElement("nav")
+function renderLanding() {
+  const main = document.querySelector("main")
+  removeAllChildren(main)
+  const navBar = document.querySelector("nav")
+  // const navBar = document.createElement("nav")
   const signUpBtn = document.createElement("button")
   signUpBtn.innerText = "Sign Up"
-  signUpBtn.addEventListener("click", signUp)
   navBar.appendChild(signUpBtn)
-  const signInBtn = document.createElement("button")
-  signInBtn.innerText = "Sign In"
-  // signInBtn.addEventListener("click", signIn)
-  navBar.appendChild(signInBtn)
-  navParent.appendChild(navBar)
+  const loginBtn = document.createElement("button")
+  loginBtn.innerText = "Log In"
+  navBar.appendChild(loginBtn)
+
+  loginBtn.addEventListener("click", login)
+  signUpBtn.addEventListener("click", signUp)
 }

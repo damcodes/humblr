@@ -1,0 +1,5 @@
+class AddDefaultBioToUsers < ActiveRecord::Migration[6.0]
+  def change
+    change_column :users, :bio, :text, default: "Add a bio here."
+  end
+end

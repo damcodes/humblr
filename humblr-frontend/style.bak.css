@@ -1,0 +1,74 @@
+body {
+  /* background-color:#A2D718; */
+  background-color: #2ed573;
+}
+header {
+  font-size: 30px;
+  color: white;
+}
+h2, h3 {
+  text-align: center;
+}
+form {
+  text-align: center;
+}
+nav {
+  text-align: center;
+}
+div.signUpBox, div.loginBox, div#delete-message-div {
+  margin: 30px;
+  background-color: #7bed9f;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+div.signUpBox form, div.loginBox form {
+  margin: 3%;
+  font-weight: bold;
+  color: #000000;
+}
+div.post-card, div.edit-profile-form-card, div.new-post-form-card {
+  text-align: center;
+  background-color: antiquewhite;
+  border-radius: 10px;
+  display: inline-block;
+  padding: 5px;
+}
+div.post-container, div.edit-profile-form-container, div.new-post-form-container {
+  text-align: center;
+  padding: 10px;
+}
+div.user-info-container {
+  text-align: center;
+  padding: 5px;
+}
+div.user-info-card {
+  background-color: #a4b0be;
+  border-radius: 10px;
+  display: inline-block;
+  padding: 40px;
+}
+.user-info-card-label {
+  font-weight: bold;
+  text-decoration: underline;
+}
+label.form-label {
+  font-weight: bold;
+  text-decoration: underline;
+  padding: 10px;
+}
+input.form-input, textarea.form-input {
+  text-align: center;
+  padding: 2px;
+}
+p.post-username {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px;
+  font-size: 30px;
+}
+button {
+  padding: 10px;
+}
+button.like-button {
+  padding: 2px;
+}

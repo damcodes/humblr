@@ -1,118 +1,110 @@
-document.addEventListener('DOMContentLoaded', () => {
-    getPost()
+const showPost = (post, deleteBtn) => {
+  const main = document.querySelector("main")
+
+  const postContainer = document.createElement("div")
+  postContainer.className = "post-container"
+  const postCard = document.createElement("div")
+  postCard.className = "post-card"
+
+  fetch(`http://localhost:3000/users/${post.user_id}`)
+  .then( res => res.json() )
+  .then( user => {
+    const username = document.createElement('p')
+    username.className = "post-username"
+    username.innerText = user.username
+    postCard.appendChild(username)     
   })
   
-  const getPost = () => {
-    fetch(`http://localhost:3000/posts/${post.id}`)
-    .then (res => res.json())
-    .then (post => {
-      showPost(post)})
-  }
-
-  const getUsers = () => {
-    fetch(`http://localhost:3000/users`)
-    .then (res => res.json())
-    .then (users => {
-      findUser(users)})
-  }
-
-  const showPost = (post) => {
-    const title = document.querySelector('.title')
-    title.innerText = post.title
-  
-    const someImage = document.querySelector('.image')
-    someImage.src = post.img_url
-
-    const postText = document.querySelector('.post-text-section')
-    postText.innerText = post.content
-
-    const likesCount = document.querySelector('.likes')
-    likesCount.innerText = `${post.likes.length} likes`
-
-    // if your user_id is not in the list of likes for this post, you
-    //can like it, otherwise post message "You like this."
-    const didLike = post.likes.find(like => like.user_id === currentUser.id)
-    const likeBtn = document.querySelector('.like-button')
-
-  //brain is cramping, this is pseudo-code, cant remember how to do the if logic
-  //   if didLike then (likeBtn.innerText = 'You like this.'})
-
-  //   if !didLike(post) => {
-  //     likeBtn.addEventListener('click', (e) => {
-  //     const currentLikes = parseInt(likesCount.innerHTML.split(' ')[0])
-  //     const newLikes = currentLikes + 1
-  //     likesCount.innerText = `${newLikes} likes`
-  //     persistLikes(post)
-  //   })
-  // }
-
-    const persistLikes = (post) => {
-      fetch('http://localhost:3000/posts/${posts.id}', {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            post_id: post.id, 
-            user_id: post.user_id
-        })
-      })
-      .then(res => res.json())
-      .then(post => console.log(post))
-    }
-  
-    const commentForm = document.querySelector('.comment-form')
-    commentForm.addEventListener('submit', (e) => {
-      e.preventDefault()
-      const newComment = e.target.comment.value
-      renderComments(newComment)
-      e.target.reset()
-      persistComment(newComment)
-    })
+  const title = document.createElement("h2")
+  title.className = "post-title"
+  title.innerText = post.title
     
-    post.comments.forEach(comment => renderComments(comment))
-  }
+  const postImg = document.createElement("img")
+  postImg.className = "post-image"
+  postImg.src = post.img_url
   
-  const renderComments = (comment) => {
-    const commentsContainer = document.querySelector('.comments')
-    const commentLi = document.createElement('li')
-    commentLi.innerText = comment.content
-
-    const deleteBtn = document.createElement('button')
-    deleteBtn.innerText = "❌"
-      deleteBtn.addEventListener('click', (e) => {
-        deleteComment(e, comment.id)
-      })
-
-    commentLi.appendChild(deleteBtn)
-    commentsContainer.appendChild(commentLi)
+  const postText = document.createElement("p")
+  postText.className = "post-text-content"
+  postText.innerText = post.content
+  
+  const likesDiv = document.createElement("div")
+  const likesCount = document.createElement("span")
+  likesCount.className = "likes"
+  likesCount.innerText = `${post.likes} likes`
+  const likeBtn = document.createElement("button")
+  likeBtn.className = "like-button"
+  likeBtn.innerText = "👍"
+  likesDiv.appendChild(likesCount)
+  likesDiv.appendChild(document.createElement("br"))
+  likesDiv.appendChild(likeBtn)
+  let children
+  if (deleteBtn) {
+    children = [title, postImg, postText, likesDiv, deleteBtn]
+  } else {
+    children = [title, postImg, postText, likesDiv]
   }
-
-  const persistComment = (newComment) => {
-    fetch('http://localhost:3000/posts/${posts.id}', {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        post_id: post.id, 
-        user_id: post.user_id
+  children.forEach(child => {
+    postCard.appendChild(child)
   })
-    })
-    .then(res => res.json())
-    .then(comment => renderComments(comment))
-  }
+
   
+  postContainer.appendChild(postCard)
+  main.appendChild(postContainer)
+  
+  handleLikes(post, likeBtn)   
+  if (deleteBtn) {
+    handleDelete(post, deleteBtn)
+  } 
+}
 
-  const deleteComment = (e, commentId) => {
-    const commentLi = e.target.parentElement
-    commentLi.remove()
-    //THIS DOES NOT WORK, fetch is wrong, maybe?
-    // fetch(`http://localhost:3000/posts/${postsId}/${comments.id}`, {
-    //   method: "DELETE",
-    //   headers: {
-    //     'Content-Type': "application/json"
-    //   }
-    // })
+function handleLikes(post, likeBtn) {
+  likeBtn.addEventListener("click", () => {
+    fetch(`http://localhost:3000/posts/${post.id}`)
+    .then( res => res.json() )
+    .then( post => {
+      const currentLikes = post.likes
+      let newLikes
+      if (likeBtn.innerText === "👍") {
+        newLikes = currentLikes + 1
+        likeBtn.innerText = "👎"
+      } else {
+        newLikes = currentLikes - 1
+        likeBtn.innerText = "👍"
+      }
+      const likesSpan = likeBtn.previousElementSibling.previousElementSibling
+      likesSpan.innerText = `${newLikes} likes`
+      persistLikes(post, newLikes)
+    })   
+  })    
+}
 
-  }  
+function persistLikes(post, newLikes) {
+  fetch(`http://localhost:3000/posts/${post.id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      likes: newLikes
+    })
+  })
+  .then(res => res.json())
+  .then(post => console.log(post))
+}
+
+function handleDelete(post, button) {
+  button.addEventListener("click", () => {
+    fetch(`http://localhost:3000/posts/${post.id}`, {
+      method: "DELETE"
+    })
+    .then( res => res.json() )
+    .then( post => {
+      fetch(`http://localhost:3000/users/${post.user_id}`)
+      .then( res => res.json() )
+      .then( user => {
+        removeAllChildren(document.querySelector("main"))
+        fetchAndRenderUserHome(user)
+      })
+    })
+  })
+}

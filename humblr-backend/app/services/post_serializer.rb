@@ -7,10 +7,9 @@ class PostSerializer
   def serialize
     options = {
       include: {
-        likes: { except: [:created_at, :updated_at] },
         comments: { except: [:created_at, :updated_at] }
       },
-      except: [:created_at, :updated_at]
+      except: [:updated_at]
     }
     @post.to_json(options)
   end

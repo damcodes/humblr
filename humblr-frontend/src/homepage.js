@@ -67,30 +67,29 @@ function renderUserInfo(userObj) {
 function handleNavClicks(user) {
   const navBar = document.querySelector("nav")
   navBar.addEventListener("click", e => { 
-    debugger
     const choice = e.target
     const main = document.querySelector("main")
     const isButton = choice.nodeName === "BUTTON"
     if (!isButton) {
       return
     }
-    if (choice.innerText === "Delete Profile") {
+    if (choice.innerText === "DELETE PROFILE") {
       deleteUser(user)
-    } else if (choice.innerText === "Log Out") {
+    } else if (choice.innerText === "LOG OUT") {
       removeAllChildren(main)
       removeAllChildren(navBar)
       renderLanding()                                   //landing.js
-    } else if (choice.innerText === "Edit Profile") {
+    } else if (choice.innerText === "EDIT PROFILE") {
       removeAllChildren(main)
       removeAllChildren(navBar)
       editProfile(user)                                 //edit_profile.js
-    } else if (choice.innerText === "Dashboard") {
+    } else if (choice.innerText === "DASHBOARD") {
       removeAllChildren(main)
       renderDashboard(user)                             //dashboard.js
-    } else if (choice.innerText === "My Profile") {
+    } else if (choice.innerText === "MY PROFILE") {
       removeAllChildren(main)
       renderUserHome(user)
-    } else if (choice.innerText == "New Post") {
+    } else if (choice.innerText == "NEW POST") {
       removeAllChildren(main)
       renderNewPostForm(user)                           //create_post.js
     }

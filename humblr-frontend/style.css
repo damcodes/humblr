@@ -3920,4 +3920,41 @@ input, select, textarea {
 				background-attachment: scroll;
 			}
 
-		}
+    }
+    
+
+
+    div.post-card, div.form-card, div.new-post-form-card {
+      text-align: center;
+      background-color: #547AA5;
+      border-radius: 10px;
+      display: inline-block;
+      padding: 5px;
+    }
+    div.post-container, div.form-container, div.new-post-form-container {
+      text-align: center;
+      padding: 10px;
+    }
+    div.user-info-container {
+      text-align: center;
+      padding: 5px;
+    }
+    div.user-info-card {
+      background-color: #a4b0be;
+      border-radius: 10px;
+      display: inline-block;
+      padding: 40px;
+    }
+    .user-info-card-label {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+    label.form-label {
+      font-weight: bold;
+      text-decoration: underline;
+      padding: 10px;
+    }
+    input.form-input, textarea.form-input {
+      text-align: center;
+      padding: 2px;
+    }

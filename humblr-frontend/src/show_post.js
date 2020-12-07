@@ -1,33 +1,32 @@
-const showPost = (post) => {
+const showPost = (post, deleteBtn) => {
   const main = document.querySelector("main")
+
   const postContainer = document.createElement("div")
   postContainer.className = "post-container"
   const postCard = document.createElement("div")
   postCard.className = "post-card"
 
-  if (post.user_id) {
-    fetch(`http://localhost:3000/users/${post.user_id}`)
-    .then( res => res.json() )
-    .then( user => {
-      const username = document.createElement('p')
-      username.className = "post-username"
-      username.innerText = user.username
-      postCard.appendChild(username)
-    })
-  }
-
+  fetch(`http://localhost:3000/users/${post.user_id}`)
+  .then( res => res.json() )
+  .then( user => {
+    const username = document.createElement('p')
+    username.className = "post-username"
+    username.innerText = user.username
+    postCard.appendChild(username)     
+  })
+  
   const title = document.createElement("h2")
   title.className = "post-title"
   title.innerText = post.title
-  
+    
   const postImg = document.createElement("img")
   postImg.className = "post-image"
   postImg.src = post.img_url
-
+  
   const postText = document.createElement("p")
   postText.className = "post-text-content"
   postText.innerText = post.content
-
+  
   const likesDiv = document.createElement("div")
   const likesCount = document.createElement("span")
   likesCount.className = "likes"
@@ -38,16 +37,24 @@ const showPost = (post) => {
   likesDiv.appendChild(likesCount)
   likesDiv.appendChild(document.createElement("br"))
   likesDiv.appendChild(likeBtn)
-
-  let children = [title, postImg, postText, likesDiv]
+  let children
+  if (deleteBtn) {
+    children = [title, postImg, postText, likesDiv, deleteBtn]
+  } else {
+    children = [title, postImg, postText, likesDiv]
+  }
   children.forEach(child => {
     postCard.appendChild(child)
   })
 
+  
   postContainer.appendChild(postCard)
   main.appendChild(postContainer)
-
-  handleLikes(post, likeBtn)
+  
+  handleLikes(post, likeBtn)   
+  if (deleteBtn) {
+    handleDelete(post, deleteBtn)
+  } 
 }
 
 function handleLikes(post, likeBtn) {
@@ -83,4 +90,21 @@ function persistLikes(post, newLikes) {
   })
   .then(res => res.json())
   .then(post => console.log(post))
+}
+
+function handleDelete(post, button) {
+  button.addEventListener("click", () => {
+    fetch(`http://localhost:3000/posts/${post.id}`, {
+      method: "DELETE"
+    })
+    .then( res => res.json() )
+    .then( post => {
+      fetch(`http://localhost:3000/users/${post.user_id}`)
+      .then( res => res.json() )
+      .then( user => {
+        removeAllChildren(document.querySelector("main"))
+        fetchAndRenderUserHome(user)
+      })
+    })
+  })
 }

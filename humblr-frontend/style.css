@@ -26,14 +26,14 @@ div.signUpBox form, div.loginBox form {
   font-weight: bold;
   color: #000000;
 }
-div.post-card {
+div.post-card, div.edit-profile-form-card, div.new-post-form-card {
   text-align: center;
   background-color: antiquewhite;
   border-radius: 10px;
   display: inline-block;
   padding: 5px;
 }
-div.post-container {
+div.post-container, div.edit-profile-form-container, div.new-post-form-container {
   text-align: center;
   padding: 10px;
 }
@@ -51,16 +51,12 @@ div.user-info-card {
   font-weight: bold;
   text-decoration: underline;
 }
-div.edit-profile-form-container {
-  text-align: center;
-  padding: 5px;
-}
-label.edit-profile-form-label {
+label.form-label {
   font-weight: bold;
   text-decoration: underline;
   padding: 10px;
 }
-input.edit-profile-form-input, textarea.edit-profile-form-input {
+input.form-input, textarea.form-input {
   text-align: center;
   padding: 2px;
 }
@@ -69,4 +65,10 @@ p.post-username {
   font-weight: bold;
   padding: 5px;
   font-size: 30px;
+}
+button {
+  padding: 10px;
+}
+button.like-button {
+  padding: 2px;
 }

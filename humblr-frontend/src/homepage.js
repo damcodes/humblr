@@ -1,14 +1,14 @@
-// function fetchUser(currentUser) {
-//   let userId = currentUser.id
-//   fetch(`http://localhost:3000/users/${userId}`).then( 
-//     res => res.json() 
-//   ).then( 
-//     user => {
-//       renderUserHome(user)
-//       handleNavClicks(user)
-//     }
-//   )
-// }
+function fetchAndRenderUserHome(user) {
+  let userId = user.id
+  fetch(`http://localhost:3000/users/${userId}`).then( 
+    res => res.json() 
+  ).then( 
+    user => {
+      renderUserHome(user)
+      handleNavClicks(user)
+    }
+  )
+}
 function renderUserHome(userObj) {
   const navBar = document.querySelector("nav")
   removeAllChildren(navBar)
@@ -16,7 +16,7 @@ function renderUserHome(userObj) {
   if (loginBox) {
     loginBox.remove()
   }
-  newMenu(navBar, "Dashboard", "My Profile", "Edit Profile", "Delete Profile", "Log Out")
+  newMenu(navBar, "Dashboard", "New Post", "My Profile", "Edit Profile", "Delete Profile", "Log Out")
 
   renderUserInfo(userObj)
   renderThisUserPosts(userObj)
@@ -81,13 +81,16 @@ function handleNavClicks(user) {
     } else if (choice.innerText === "Edit Profile") {
       removeAllChildren(main)
       removeAllChildren(navBar)
-      editProfile(user)
+      editProfile(user)                                 //edit_profile.js
     } else if (choice.innerText === "Dashboard") {
       removeAllChildren(main)
-      renderDashboard(user)
+      renderDashboard(user)                             //dashboard.js
     } else if (choice.innerText === "My Profile") {
       removeAllChildren(main)
       renderUserHome(user)
+    } else if (choice.innerText == "New Post") {
+      removeAllChildren(main)
+      renderNewPostForm(user)
     }
   })
 }
@@ -110,7 +113,18 @@ function renderThisUserPosts(user) {
     postsHeader.innerText = "Your Posts"
     main.insertBefore(postsHeader, insertAt.nextElementSibling)
   }
-  user.posts.forEach(post => (showPost(post))) // show_post.js
+  const sortedPosts = user.posts.sort((x,y) => x.created_at - y.created_at)
+  sortedPosts.forEach(post => {
+    fetch(`http://localhost:3000/posts/${post.id}`)
+    .then( res => res.json() )
+    .then( post => {
+      const deletePostBtn = document.createElement('button')
+      deletePostBtn.innerText = "Delete Post"
+      deletePostBtn.id = "delete-post-button"
+      showPost(post, deletePostBtn)                   //show_post.js
+    })                           
+  })
+  
 }
 
 function deleteUser(user) {
@@ -132,7 +146,9 @@ function deleteUser(user) {
 
   fetch(`http://localhost:3000/users/${user.id}`, {
     method: "DELETE"
-  }).then( res => res.json() ).then( user => {
+  })
+  .then( res => res.json() )
+  .then( user => {
     console.log(user)
     setTimeout(renderLanding, 2500) // landing.js
   })

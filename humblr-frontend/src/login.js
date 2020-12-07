@@ -51,7 +51,7 @@ function newSession(e) {
     if (currentUser instanceof Array) {
       renderErrors(currentUser, form)
     } else {
-      renderUserHome(currentUser) //homepage.js
+      fetchAndRenderUserHome(currentUser) //homepage.js
     }
   })
 }

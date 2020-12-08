@@ -55,7 +55,7 @@ function createUser(e) {
   }).then( res => res.json() ).then(user => {
     console.log(user)
     if (user instanceof Array) {
-      renderErrors(user, form)
+      showErrors(user, form)
     } else {
       renderLoginPage(document.querySelector("main")) // login.js
     }
@@ -63,15 +63,24 @@ function createUser(e) {
   form.reset()
 }
 
-function renderErrors(errors, form) {
+function showErrors(errors, form) {
+  let errorUl
+  if (document.querySelector("ul")){
+    removeAllChildren(document.querySelector("ul"))
+    errorUl = document.querySelector('ul')
+  } else {
+    errorUl = document.createElement("ul")
+  }
   errors.forEach(error => {
     const newLi = document.createElement("li")
     newLi.style.color = "red"
     newLi.innerText = error
     newLi.style.textAlign = "center"
-    const parent = form.parentNode
-    parent.insertBefore(newLi, form)
+    errorUl.appendChild(newLi)
   })
+  const parent = form.parentNode
+  errorUl.style.listStyleType = "none"
+  parent.insertBefore(errorUl, form)
 }
 
 function removeAllChildren(parent) {

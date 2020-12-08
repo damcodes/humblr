@@ -1,15 +1,13 @@
 function renderNewPostForm(user) {
   const main = document.querySelector("main")
-  const navBar = document.querySelector("nav")
-  removeAllChildren(navBar)
   removeAllChildren(main)
 
   const newPostFormContainer = document.createElement("div")
-  newPostFormContainer.className = "new-post-form-container"
+  newPostFormContainer.className = "form-container"
   main.appendChild(newPostFormContainer)
 
   const newPostFormCard = document.createElement('div')
-  newPostFormCard.className = "new-post-form-card"
+  newPostFormCard.className = "form-card"
   newPostFormContainer.appendChild(newPostFormCard)
 
   const newPostHeader = document.createElement("h2")
@@ -25,7 +23,6 @@ function renderNewPostForm(user) {
   titleLabel.className = 'form-label'
   titleLabel.innerText = "Title"
   newPostForm.appendChild(titleLabel)
-  newPostForm.appendChild(document.createElement("br"))
 
   const titleInput = document.createElement('input')
   titleInput.className = 'form-input'
@@ -33,12 +30,12 @@ function renderNewPostForm(user) {
   titleInput.id = "title"
   newPostForm.appendChild(titleInput)
   newPostForm.appendChild(document.createElement("br"))
+  newPostForm.appendChild(document.createElement("br"))
 
   const imgLabel = document.createElement('label')
   imgLabel.className = "form-label"
   imgLabel.innerText = "Image URL"
   newPostForm.appendChild(imgLabel)
-  newPostForm.appendChild(document.createElement("br"))
 
   const imgInput = document.createElement('input')
   imgInput.className = "form-input"
@@ -46,12 +43,12 @@ function renderNewPostForm(user) {
   imgInput.id = "img"
   newPostForm.appendChild(imgInput)
   newPostForm.appendChild(document.createElement('br'))
+  newPostForm.appendChild(document.createElement("br"))
 
   const contentLabel = document.createElement('label')
   contentLabel.className = 'form-label'
   contentLabel.innerText = 'Post'
   newPostForm.appendChild(contentLabel)
-  newPostForm.appendChild(document.createElement('br'))
 
   const contentInput = document.createElement('textarea')
   contentInput.className = 'form-input'

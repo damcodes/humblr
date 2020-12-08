@@ -17,7 +17,7 @@ function renderUserHome(userObj) {
   // }
   const main = document.querySelector("main")
   removeAllChildren(main)
-  newMenu(navBar, "Dashboard", "New Post", "My Profile", "Edit Profile", "Delete Profile", "Log Out")
+  newMenu(navBar, "Dashboard", "Search User", "New Post", "My Profile", "Edit Profile", "Delete Profile", "Log Out")
 
   renderUserInfo(userObj)
   renderThisUserPosts(userObj)
@@ -58,9 +58,9 @@ function renderUserInfo(userObj) {
   bio.innerText = userObj.bio
   userInfoCard.appendChild(bio)                               //append bio to user card
   userInfoContainer.appendChild(userInfoCard)                 //append populated user card to card container
-  const welcomeUserHeader = document.createElement("h2")
-  welcomeUserHeader.innerText = `Welcome ${userObj.first_name}`
-  main.appendChild(welcomeUserHeader)
+  // const welcomeUserHeader = document.createElement("h2")
+  // welcomeUserHeader.innerText = `Welcome ${userObj.first_name}`
+  // main.appendChild(welcomeUserHeader)
   main.appendChild(userInfoContainer)
 }
 
@@ -89,9 +89,12 @@ function handleNavClicks(user) {
     } else if (choice.innerText === "MY PROFILE") {
       removeAllChildren(main)
       renderUserHome(user)
-    } else if (choice.innerText == "NEW POST") {
+    } else if (choice.innerText === "NEW POST") {
       removeAllChildren(main)
       renderNewPostForm(user)                           //create_post.js
+    } else if (choice.innerText === "SEARCH USER") {
+      removeAllChildren(main)
+      searchUser(user)
     }
   })
 }

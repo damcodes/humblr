@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     if user
       render json: UserSerializer.new(user).serialize
     else 
-      render json: ["Incorrect email or username."]
+      render json: ["Incorrect email or username"]
     end
   end
 

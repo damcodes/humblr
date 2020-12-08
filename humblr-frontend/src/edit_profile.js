@@ -22,8 +22,7 @@ function editProfile(user) {
       const emailLabel = document.createElement("label")
       emailLabel.className = "form-label"
       emailLabel.innerText = "Email"
-      editForm.appendChild(emailLabel)
-      editForm.appendChild(document.createElement("br"))            //append email label to form
+      editForm.appendChild(emailLabel)                              //append email label to form
     
       const emailInput = document.createElement("input")
       emailInput.className = "form-input"
@@ -31,12 +30,12 @@ function editProfile(user) {
       emailInput.value = user.email
       editForm.appendChild(emailInput)  
       editForm.appendChild(document.createElement("br"))            //append prefilled email to form
+      editForm.appendChild(document.createElement("br"))
     
       const firstNameLabel = document.createElement("label")
       firstNameLabel.className = "form-label"
       firstNameLabel.innerText = "First Name"
-      editForm.appendChild(firstNameLabel)
-      editForm.appendChild(document.createElement('br'))            //append first name label to form
+      editForm.appendChild(firstNameLabel)                          //append first name label to form
     
       const firstName = document.createElement("input")
       firstName.className = "form-input"
@@ -44,12 +43,12 @@ function editProfile(user) {
       firstName.value = user.first_name
       editForm.appendChild(firstName)
       editForm.appendChild(document.createElement("br"))            //append first name to form
+      editForm.appendChild(document.createElement('br'))
     
       const lastNameLabel = document.createElement("label")
       lastNameLabel.className = "form-label"
       lastNameLabel.innerText = "Last Name"
-      editForm.appendChild(lastNameLabel)
-      editForm.appendChild(document.createElement("br"))            //append last name label to form
+      editForm.appendChild(lastNameLabel)                           //append last name label to form
     
       const lastName = document.createElement("input")
       lastName.className = "form-input"
@@ -57,12 +56,12 @@ function editProfile(user) {
       lastName.value = user.last_name
       editForm.appendChild(lastName)
       editForm.appendChild(document.createElement("br"))            //append last name to form
+      editForm.appendChild(document.createElement('br'))
     
       const bioLabel = document.createElement("label")
       bioLabel.className = "form-label"
       bioLabel.innerText = "Bio"
-      editForm.appendChild(bioLabel)
-      editForm.appendChild(document.createElement("br"))            //append bio label to form
+      editForm.appendChild(bioLabel)                               //append bio label to form
     
       const bio = document.createElement("textarea")
       bio.className = "form-input"

@@ -37,16 +37,35 @@ const showPost = (post, deleteBtn) => {
   likesDiv.appendChild(likesCount)
   likesDiv.appendChild(document.createElement("br"))
   likesDiv.appendChild(likeBtn)
-  let children
-  if (deleteBtn) {
-    children = [title, postImg, postText, likesDiv, deleteBtn]
-  } else {
-    children = [title, postImg, postText, likesDiv]
-  }
-  children.forEach(child => {
-    postCard.appendChild(child)
+
+  const getComments = post.comments.forEach(comment => {
+    fetch(`http://localhost:3000/users/${comment.user_id}`)
+    .then( res => res.json() )
+    .then( user => {
+      debugger
+       const commentsDiv = renderCommentUser(comment, user)
+       let children
+       if (deleteBtn) {
+         children = [title, postImg, postText, likesDiv, commentsDiv, deleteBtn]
+       } else {
+         children = [title, postImg, postText, likesDiv, commentsDiv]
+       }
+       children.forEach(child => {
+         postCard.appendChild(child)
+       })
+     
+    })
   })
 
+  // let children
+  // if (deleteBtn) {
+  //   children = [title, postImg, postText, likesDiv, commentsDiv, deleteBtn]
+  // } else {
+  //   children = [title, postImg, postText, likesDiv, commentsDiv]
+  // }
+  // children.forEach(child => {
+  //   postCard.appendChild(child)
+  // })
   
   postContainer.appendChild(postCard)
   main.appendChild(postContainer)
@@ -55,6 +74,16 @@ const showPost = (post, deleteBtn) => {
   if (deleteBtn) {
     handleDelete(post, deleteBtn)
   } 
+}
+
+function renderCommentUser (comment, user) {
+  const commentsDiv = document.createElement("div")
+  commentsDiv.innerText = ("Comments:")
+  const userName = user.username
+  const commentLi = document.createElement("li")
+  commentLi.innerText = userName + ": " + comment.content
+  commentsDiv.appendChild(commentLi)
+  return commentsDiv
 }
 
 function handleLikes(post, likeBtn) {

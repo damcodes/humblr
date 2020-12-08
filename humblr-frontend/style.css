@@ -34,7 +34,7 @@ body {
 
 
 
-h2, h3 {
+h1, h2, h3 {
   text-align: center;
 }
 form {
@@ -201,7 +201,7 @@ input, select, textarea {
 		}
 
 	h1 {
-		font-size: 2.75em;
+		font-size: 4.75em;
 	}
 
 		h1.major {
@@ -2576,6 +2576,7 @@ input, select, textarea {
 /* Image */
 
 	.image {
+
 		border-radius: 0.25em;
 		border: 0;
 		display: inline-block;
@@ -2585,6 +2586,7 @@ input, select, textarea {
 		.image img {
 			border-radius: 0.25em;
 			display: block;
+
 		}
 
 		.image.left, .image.right {
@@ -3956,6 +3958,7 @@ input, select, textarea {
     input.form-input, textarea.form-input {
       text-align: center;
       padding: 2px;
+      color: #547AA5;
     }
     textarea {
       color: rgba(255, 255, 255, 0.55);
@@ -3963,4 +3966,19 @@ input, select, textarea {
     #gif-container {
       text-align: center;
     }
-    
+    textarea.form-input {
+      text-align: center;
+      padding: 2px;
+      color: rgba(255, 255, 255, 0.55);
+    }
+    #username-follow {
+      font-size: 45px;
+      font-weight: bold;
+    }
+
+    .post-image {
+ /*	height: 300px; */
+ 	width: 600px;
+ 	overflow: hidden; 
+	}
+

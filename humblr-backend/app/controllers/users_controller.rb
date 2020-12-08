@@ -27,13 +27,8 @@ class UsersController < ApplicationController
 
   def destroy
     user = User.find_by(id: params[:id])
-    byebug
-    # if user
-      user.destroy
-      render json: UserSerializer.new(user).serialize
-    # else
-    #   render json: ["User account deleted"]
-    # end
+    user.destroy
+    render json: UserSerializer.new(user).serialize
   end
 
   private

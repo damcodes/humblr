@@ -11,17 +11,13 @@ function fetchAndRenderUserHome(user) {
 function renderUserHome(userObj) {
   const navBar = document.querySelector("nav")
   removeAllChildren(navBar)
-  // const loginBox = document.querySelector("div.loginBox")
-  // if (loginBox) {
-  //   loginBox.remove()
-  // }
+
   const main = document.querySelector("main")
   removeAllChildren(main)
   newMenu(navBar, "Dashboard", "Search User", "New Post", "My Profile", "Edit Profile", "Delete Profile", "Log Out")
-
+  
   renderUserInfo(userObj)
   renderThisUserPosts(userObj)
-  // handleNavClicks(userObj)
 }
 
 function renderUserInfo(userObj) {
@@ -87,6 +83,7 @@ function handleNavClicks(user) {
       removeAllChildren(main)
       renderDashboard(user)                             //dashboard.js
     } else if (choice.innerText === "MY PROFILE") {
+      debugger
       removeAllChildren(main)
       renderUserHome(user)
     } else if (choice.innerText === "NEW POST") {

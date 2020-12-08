@@ -37,6 +37,15 @@ const showPost = (post, deleteBtn) => {
   likesDiv.appendChild(likesCount)
   likesDiv.appendChild(document.createElement("br"))
   likesDiv.appendChild(likeBtn)
+
+  // const getComments = post.comments.forEach(comment => {
+  //   fetch(`http://localhost:3000/users/${comment.user_id}`)
+  //   .then( res => res.json() )
+  //   .then( user => {
+  //      const commentsDiv = renderCommentUser(comment, user)     
+  //   })
+  // })
+
   let children
   if (deleteBtn) {
     children = [title, postImg, postText, likesDiv, deleteBtn]
@@ -46,7 +55,6 @@ const showPost = (post, deleteBtn) => {
   children.forEach(child => {
     postCard.appendChild(child)
   })
-
   
   postContainer.appendChild(postCard)
   main.appendChild(postContainer)
@@ -56,6 +64,18 @@ const showPost = (post, deleteBtn) => {
     handleDelete(post, deleteBtn)
   } 
 }
+
+// function renderCommentUser (comment, user) {
+//   const commentsDiv = document.createElement("div")
+//   commentsDiv.innerText = ("Comments:")
+//   const userName = user.username
+//   const commentLi = document.createElement("li")
+//   commentLi.innerText = userName + ": " + comment.content
+//   commentsDiv.appendChild(commentLi)
+//   const card = document.querySelector("div.post-card")
+//   const button = document.querySelector('button.delete-post-button')
+//   card.insertBefore(commentsDiv, button)
+// }
 
 function handleLikes(post, likeBtn) {
   likeBtn.addEventListener("click", () => {

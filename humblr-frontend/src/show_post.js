@@ -45,12 +45,14 @@ const showPost = (post, deleteBtn) => {
   //      const commentsDiv = renderCommentUser(comment, user)     
   //   })
   // })
+  const commentsBtn = document.createElement('button')
+  commentsBtn.innerText = "Comments"
 
   let children
   if (deleteBtn) {
-    children = [title, postImg, postText, likesDiv, deleteBtn]
+    children = [title, postImg, postText, likesDiv, deleteBtn, commentsBtn]
   } else {
-    children = [title, postImg, postText, likesDiv]
+    children = [title, postImg, postText, likesDiv, commentsBtn]
   }
   children.forEach(child => {
     postCard.appendChild(child)
@@ -58,24 +60,14 @@ const showPost = (post, deleteBtn) => {
   
   postContainer.appendChild(postCard)
   main.appendChild(postContainer)
-  
+
+
+  handleCommentsView(post, commentsBtn)
   handleLikes(post, likeBtn)   
   if (deleteBtn) {
     handleDelete(post, deleteBtn)
   } 
 }
-
-// function renderCommentUser (comment, user) {
-//   const commentsDiv = document.createElement("div")
-//   commentsDiv.innerText = ("Comments:")
-//   const userName = user.username
-//   const commentLi = document.createElement("li")
-//   commentLi.innerText = userName + ": " + comment.content
-//   commentsDiv.appendChild(commentLi)
-//   const card = document.querySelector("div.post-card")
-//   const button = document.querySelector('button.delete-post-button')
-//   card.insertBefore(commentsDiv, button)
-// }
 
 function handleLikes(post, likeBtn) {
   likeBtn.addEventListener("click", () => {
@@ -128,3 +120,40 @@ function handleDelete(post, button) {
     })
   })
 }
+
+function handleCommentsView(post, button){ 
+  button.addEventListener("click", () => {
+    const comments = post.comments
+    const main = document.querySelector("main")
+    removeAllChildren(main)
+    const commentsContainer = document.createElement("div")
+    commentsContainer.className = "post-container"
+    main.appendChild(commentsContainer)
+
+    const commentsCard = document.createElement("div")
+    commentsCard.className = "post-card"
+    commentsContainer.appendChild(commentsCard)
+
+    const commentsHeader = document.createElement("h2")
+    commentsHeader.innerText = "Comments"
+    commentsCard.appendChild(commentsHeader)
+
+    comments.forEach(comment => {
+      const newLi = document.createElement("li")
+      newLi.innerText = `${comment.username}: ${comment.content}`
+      commentsCard.appendChild(newLi)
+    })
+  })
+}
+
+// function renderCommentUser (comment, user) {
+//   const commentsDiv = document.createElement("div")
+//   commentsDiv.innerText = ("Comments:")
+//   const userName = user.username
+//   const commentLi = document.createElement("li")
+//   commentLi.innerText = userName + ": " + comment.content
+//   commentsDiv.appendChild(commentLi)
+//   const card = document.querySelector("div.post-card")
+//   const button = document.querySelector('button.delete-post-button')
+//   card.insertBefore(commentsDiv, button)
+// }

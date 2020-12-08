@@ -70,9 +70,11 @@ function renderUser(followee, follower) {
 
   const userCard = document.createElement("div")
   userCard.className = "user-info-card"
+  userCard.id = 'user-search-card'
   userContainer.appendChild(userCard)
 
   const profilePic = document.createElement("img")
+  profilePic.className = 'post-image'
   profilePic.src = followee.profile_pic_url
   userCard.appendChild(profilePic)
   userCard.appendChild(document.createElement("br"))
@@ -98,8 +100,8 @@ function renderUser(followee, follower) {
     const followerId = follower.id
     if (followBtn.innerText === "FOLLOW") {
       removeAllChildren(main)
-      persistFollow(followeeId, followerId, follower, "post")
-      fetchAndRenderUserHome(follower)
+      persistFollow(followeeId, followerId, "post")
+      renderDashboard(follower)
     } //else if (followBtn.innerText === "UNFOLLOW") {
     //   removeAllChildren(main)
     //   persistFollow(followeeId, followerId, follower, "delete")

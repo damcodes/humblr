@@ -3926,12 +3926,14 @@ input, select, textarea {
     
 
 
-    div.post-card, div.form-card {
+    div.post-card, div.form-card, #user-search-card {
       text-align: center;
       background-color: #547AA5;
       border-radius: 10px;
       display: inline-block;
       padding: 5px;
+      width: 650px;
+      overflow: hidden;
     }
     div.post-container, div.form-container {
       text-align: center;
